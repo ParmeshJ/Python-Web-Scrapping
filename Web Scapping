@@ -1,0 +1,58 @@
+from bs4 import BeautifulSoup as bs
+import requests
+link="https://www.flipkart.com/apple-iphone-14-pro-max-silver-1-tb/p/itm674918cf10f1d?pid=MOBGHWFHHURZWVKE&lid=LSTMOBGHWFHHURZWVKEAO46IE&marketplace=FLIPKART&q=iphone+14+pro+max&store=tyy%2F4io&srno=s_1_1&otracker=AS_QueryStore_OrganicAutoSuggest_1_6_na_na_na&otracker1=AS_QueryStore_OrganicAutoSuggest_1_6_na_na_na&fm=search-autosuggest&iid=9d3d3e47-41e4-4814-b2f1-72ae3a94b91b.MOBGHWFHHURZWVKE.SEARCH&ppt=pp&ppn=pp&ssid=6syg7rx8ow0000001669432711004&qH=37e37d60a349d989"
+page=requests.get(link)
+page
+page.content
+soup=bs(page.content,"html.parser")
+soup
+print(soup.prettify())
+title=soup.title
+title
+print(type(soup))
+print(title.string)
+price=soup.find_all("div",class_="_30jeq3 _16Jk6d")
+price
+product_price=[]
+
+for i in range(0,len(price)):
+    product_price.append(price[i].get_text())
+product_price
+price[i].get_text()
+names=soup.find_all("p",class_="_2sc7ZR _2V5EHH")
+names
+cust_names=[]
+
+for i in range(0,len(names)):
+    cust_names.append(names[i].get_text())
+cust_names
+review=soup.find_all("p",class_="_2-N8zT")
+review
+prd_review=[]
+
+for i in range(0,len(review)):
+    prd_review.append(review[i].get_text())
+prd_review
+comments=soup.find_all("div",class_="t-ZTKy")
+comments
+cust_comm=[]
+
+for i in range(0,len(comments)):
+    cust_comm.append(comments[i].get_text())
+cust_comm
+rating=soup.find_all("div",class_="_3LWZlK _1BLPMq")
+rating
+cust_rating=[]
+
+for i in range(0,len(rating)):
+    cust_rating.append(rating[i].get_text())
+cust_rating
+import pandas as pd
+df=pd.DataFrame()
+
+df["Customer Name"]=cust_names
+df["Customer Review"]=prd_review
+df["Customer Comments"]=cust_comm
+df["Customer Rating"]=cust_rating
+
+df
